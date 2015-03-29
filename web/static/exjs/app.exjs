@@ -1,0 +1,13 @@
+defmodule App do
+  require JQuery
+  
+  def world() do
+    a = "Hello World"
+  end
+
+  :console.log(world())
+
+  JQuery.get("/api/person/1", fn(data) -> 
+    :console.log(data) 
+  end)
+end
