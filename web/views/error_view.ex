@@ -1,5 +1,5 @@
-defmodule Example.ErrorView do
-  use Example.Web, :view
+defmodule Todo.ErrorView do
+  use Todo.Web, :view
 
   def render("404.html", _assigns) do
     "Page not found - 404"

@@ -1,5 +1,5 @@
-defmodule Example.PageController do
-  use Example.Web, :controller
+defmodule Todo.PageController do
+  use Todo.Web, :controller
 
   plug :action
 

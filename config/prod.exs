@@ -6,7 +6,7 @@ use Mix.Config
 #
 # You should also configure the url host to something
 # meaningful, we use this information when generating URLs.
-config :example, Example.Endpoint,
+config :todo, Todo.Endpoint,
   http: [port: {:system, "PORT"}],
   url: [host: "example.com"]
 
@@ -15,7 +15,7 @@ config :example, Example.Endpoint,
 # To get SSL working, you will need to add the `https` key
 # to the previous section:
 #
-#  config:example, Example.Endpoint,
+#  config:todo, Todo.Endpoint,
 #    ...
 #    https: [port: 443,
 #            keyfile: System.get_env("SOME_APP_SSL_KEY_PATH"),
@@ -37,7 +37,7 @@ config :logger, level: :info
 # Alternatively, you can configure exactly which server to
 # start per endpoint:
 #
-#     config :example, Example.Endpoint, server: true
+#     config :todo, Todo.Endpoint, server: true
 #
 
 # Finally import the config/prod.secret.exs

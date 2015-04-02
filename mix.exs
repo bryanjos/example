@@ -1,8 +1,8 @@
-defmodule Example.Mixfile do
+defmodule Todo.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :example,
+    [app: :todo,
      version: "0.0.1",
      elixir: "~> 1.0",
      elixirc_paths: ["lib", "web"],
@@ -14,8 +14,8 @@ defmodule Example.Mixfile do
   #
   # Type `mix help compile.app` for more information
   def application do
-    [mod: {Example, []},
-     applications: [:phoenix, :cowboy, :logger]]
+    [mod: {Todo, []},
+     applications: [:phoenix, :cowboy, :logger, :ex_to_js]]
   end
 
   # Specifies your project dependencies
@@ -26,7 +26,7 @@ defmodule Example.Mixfile do
      {:phoenix_ecto, "~> 0.1"},
      {:postgrex, ">= 0.0.0"},
      {:cowboy, "~> 1.0"},
-     {:ex_to_js, github: "bryanjos/ex_to_js"},
+     {:ex_to_js, path: "/Users/bryanjos/projects/basstype/ex_to_js"},
    ]
   end
 end

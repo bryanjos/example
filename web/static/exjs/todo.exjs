@@ -1,0 +1,40 @@
+defmodule Todo do
+  require JQuery
+
+  def list() do
+    JQuery.get("/api/todo", fn(data) -> 
+      :console.log(data) 
+    end)
+  end
+
+  def add(title) do
+    JQuery.post("/api/todo", %{title: title} ,fn(data) -> 
+      :console.log(data) 
+    end)
+  end
+
+  def remove(id) do
+    req = JQuery.ajax(%{
+      url: "/api/todo/" <> id,
+      dataType: "json",
+      method: "DELETE"
+    })
+
+    req.done(fn(data) ->
+      :console.log(data)
+    end)
+  end
+
+  def update(id, title, completed) do
+    req = JQuery.ajax(%{
+      url: "/api/todo/" <> id,
+      data: %{title: title, completed: completed},
+      dataType: "json",
+      method: "PUT"
+    })
+
+    req.done(fn(data) ->
+      :console.log(data)
+    end)
+  end
+end

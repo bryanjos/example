@@ -1,13 +1,5 @@
 defmodule App do
-  require JQuery
-  
-  def world() do
-    a = "Hello World"
-  end
+  import JS.Todo
 
-  :console.log(world())
-
-  JQuery.get("/api/person/1", fn(data) -> 
-    :console.log(data) 
-  end)
+  Todo.list()
 end

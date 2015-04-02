@@ -1,3 +1,3 @@
-defmodule Example.LayoutView do
-  use Example.Web, :view
+defmodule Todo.LayoutView do
+  use Todo.Web, :view
 end

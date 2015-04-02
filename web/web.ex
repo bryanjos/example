@@ -1,12 +1,12 @@
-defmodule Example.Web do
+defmodule Todo.Web do
   @moduledoc """
   A module that keeps using definitions for controllers,
   views and so on.
 
   This can be used in your application as:
 
-      use Example.Web, :controller
-      use Example.Web, :view
+      use Todo.Web, :controller
+      use Todo.Web, :view
 
   Keep the definitions in this module short and clean,
   mostly focused on imports, uses and aliases.
@@ -17,7 +17,7 @@ defmodule Example.Web do
       use Phoenix.View, root: "web/templates"
 
       # Import URL helpers from the router
-      import Example.Router.Helpers
+      import Todo.Router.Helpers
 
       # Import all HTML functions (forms, tags, etc)
       use Phoenix.HTML
@@ -29,10 +29,10 @@ defmodule Example.Web do
       use Phoenix.Controller
 
       # Alias the data repository as a convenience
-      alias Example.Repo
+      alias Todo.Repo
 
       # Import URL helpers from the router
-      import Example.Router.Helpers
+      import Todo.Router.Helpers
     end
   end
 

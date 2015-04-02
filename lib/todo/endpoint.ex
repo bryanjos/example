@@ -1,9 +1,9 @@
-defmodule Example.Endpoint do
-  use Phoenix.Endpoint, otp_app: :example
+defmodule Todo.Endpoint do
+  use Phoenix.Endpoint, otp_app: :todo
 
   # Serve at "/" the given assets from "priv/static" directory
   plug Plug.Static,
-    at: "/", from: :example,
+    at: "/", from: :todo,
     only: ~w(css images js jspm_packages config.js favicon.ico robots.txt)
 
   plug Plug.Logger
@@ -26,5 +26,5 @@ defmodule Example.Endpoint do
     signing_salt: "4M7yh9ts",
     encryption_salt: "1nASQZCX"
 
-  plug :router, Example.Router
+  plug :router, Todo.Router
 end

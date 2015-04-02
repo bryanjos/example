@@ -1,4 +1,4 @@
-# Example
+# Todo
 
 Example Phoenix Project showing off Elixir to JavaScript and interoperability with other JavaScript libraries. This should be continuosly updated as development of the ex_to_js library continues.
 

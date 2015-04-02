@@ -14,16 +14,16 @@
   <body>
     <div class="container">
       <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li><a href="http://www.phoenixframework.org/docs">Get Started</a></li>
-        </ul>
-        <span class="logo"></span>
+        <h1>todos</h1>
+        <input id="new-todo" placeholder="What needs to be done?" autofocus>
       </div>
 
       <%= @inner %>
 
       <div class="footer">
-        <p><a href="http://phoenixframework.org">phoenixframework.org</a></p>
+        <p>Double-click to edit a todo</p>
+        <p>Created by <a href="http://bryaninspired.com">Bryan Joseph</a></p>
+        <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
       </div>
 
     </div> <!-- /container -->

@@ -1,4 +1,4 @@
-defmodule Example.Router do
+defmodule Todo.Router do
   use Phoenix.Router
 
   pipeline :browser do
@@ -12,16 +12,17 @@ defmodule Example.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", Example do
+  scope "/", Todo do
     pipe_through :browser # Use the default browser stack
 
     get "/", PageController, :index
   end
 
   # Other scopes may use custom stacks.
-   scope "/api", Example do
+   scope "/api", Todo do
      pipe_through :api
 
-     get "/person/:id", PersonController, :show
+     resources "/todo", TodoController, except: [:new, :edit]
+
    end
 end

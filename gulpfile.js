@@ -30,8 +30,8 @@ gulp.task('build-exjs', function() {
   gulp.src(exjsSrc)
   .pipe(plumber())
   .pipe(spawn({
-    cmd: 'mix',
-    args: ["ex2js", "-st"]
+    cmd: './_build/dev/lib/ex_to_js/priv/ex2js',
+    args: ["-st"]
   }))
   .pipe(babel({sourceMap: false, modules:'system'}))
   .pipe(rename({extname: '.js'}))

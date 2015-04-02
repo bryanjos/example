@@ -1,3 +1,3 @@
-defmodule Example.PageView do
-  use Example.Web, :view
+defmodule Todo.PageView do
+  use Todo.Web, :view
 end
