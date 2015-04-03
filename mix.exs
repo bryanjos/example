@@ -26,7 +26,7 @@ defmodule Todo.Mixfile do
      {:phoenix_ecto, "~> 0.1"},
      {:postgrex, ">= 0.0.0"},
      {:cowboy, "~> 1.0"},
-     {:ex_to_js, path: "/Users/bryanjos/projects/basstype/ex_to_js"},
+     {:ex_to_js, github: "bryanjos/ex_to_js"},
    ]
   end
 end

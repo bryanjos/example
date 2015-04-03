@@ -2,4 +2,14 @@ defmodule App do
   import JS.Todo
 
   Todo.list()
+  elem = :document.getElementById("new-todo")
+  elem.addEventListener("keypress", fn(%{keyCode: keyCode}) -> 
+    case keyCode do
+      13 ->
+        :console.log("Enter")
+        #Todo.add(elem.value)
+      _ ->
+        :console.log("Some Other Key")       
+    end
+  end , false)
 end

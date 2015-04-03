@@ -3,7 +3,9 @@ defmodule Todo do
 
   def list() do
     JQuery.get("/api/todo", fn(data) -> 
-      :console.log(data) 
+      Enum.map(data, fn(x)->
+        :console.log(x)
+      end)
     end)
   end
 
