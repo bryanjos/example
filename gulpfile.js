@@ -29,19 +29,15 @@ gulp.task('build-sass', function() {
 gulp.task('build-exjs', function() {
   gulp.src(exjsSrc)
   .pipe(plumber())
-  .pipe(spawn({
-    cmd: './_build/dev/lib/ex_to_js/priv/ex2js',
-    args: ["-st"]
-  }))
+  .pipe(spawn({ cmd: '/usr/local/ex2js/bin/ex2js', args: ["-st"] }))
   .pipe(babel({sourceMap: false, modules:'system'}))
   .pipe(rename({extname: '.js'}))
   .pipe(gulp.dest(jsDest));
 });
 
 gulp.task('build-elixir-lib', function() {
-  gulp.src("./_build/dev/lib/ex_to_js/priv/includes/*.js")
+  gulp.src("/usr/local/ex2js/elixir.js")
   .pipe(babel({sourceMap: false}))
-  .pipe(concat('elixir.js'))
   .pipe(gulp.dest(jsDest));
 });
 
@@ -53,7 +49,7 @@ gulp.task('build-js', function() {
       .pipe(gulp.dest(jsDest));
 });
 
-gulp.task('build', ['build-elixir-lib','build-exjs', 'build-js', 'build-sass']);
+gulp.task('build', ['build-elixir-lib', 'build-exjs', 'build-js', 'build-sass']);
 
 
 gulp.task('watch', ['build'], function() {

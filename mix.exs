@@ -15,7 +15,7 @@ defmodule Todo.Mixfile do
   # Type `mix help compile.app` for more information
   def application do
     [mod: {Todo, []},
-     applications: [:phoenix, :cowboy, :logger, :ex_to_js]]
+     applications: [:phoenix, :cowboy, :logger]]
   end
 
   # Specifies your project dependencies
@@ -25,8 +25,7 @@ defmodule Todo.Mixfile do
     [{:phoenix, "~> 0.10.0"},
      {:phoenix_ecto, "~> 0.1"},
      {:postgrex, ">= 0.0.0"},
-     {:cowboy, "~> 1.0"},
-     {:ex_to_js, github: "bryanjos/ex_to_js"},
+     {:cowboy, "~> 1.0"}
    ]
   end
 end

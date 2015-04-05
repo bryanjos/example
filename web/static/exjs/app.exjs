@@ -6,10 +6,9 @@ defmodule App do
   elem.addEventListener("keypress", fn(%{keyCode: keyCode}) -> 
     case keyCode do
       13 ->
-        :console.log("Enter")
-        #Todo.add(elem.value)
+        Todo.add(elem.value)
       _ ->
-        :console.log("Some Other Key")       
+        Logger.debug("Some Other Key")       
     end
   end , false)
 end

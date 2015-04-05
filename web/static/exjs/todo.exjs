@@ -9,8 +9,8 @@ defmodule Todo do
     end)
   end
 
-  def add(title) do
-    JQuery.post("/api/todo", %{title: title} ,fn(data) -> 
+  def add(the_title) do
+    JQuery.post("/api/todo", %{title: the_title} ,fn(data) -> 
       :console.log(data) 
     end)
   end
