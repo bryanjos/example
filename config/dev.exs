@@ -17,12 +17,12 @@ config :todo, Todo.Endpoint,
 # will use higher CPU in dev as the number of files
 # grow. Adjust as necessary.
 config :todo, Todo.Endpoint,
-  live_reload: [Path.expand("priv/static/js/app.js"),
-                Path.expand("priv/static/css/app.css"),
-                Path.expand("web/templates/**/*.eex")]
-
-# Enables code reloading for development
-config :phoenix, :code_reloader, true
+  code_reloader: true,
+  live_reload: [
+    patterns: [~r{priv/static/.*(js|css|png|jpeg|jpg|gif)$},
+               ~r{web/views/.*(ex)$},
+               ~r{web/templates/.*(eex)$}]
+  ]
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"

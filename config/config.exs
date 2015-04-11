@@ -11,7 +11,8 @@ config :todo, Todo.Endpoint,
   secret_key_base: "GwxIuioe73sMw8DTOnq7ow/Dv6oWrJl14EnQtTY9SiWzf1fmPUVyIT85+ryXqLdA",
   debug_errors: false,
   pubsub: [name: Todo.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+           adapter: Phoenix.PubSub.PG2],
+  root: Path.expand("..", __DIR__)
 
 # Configures Elixir's Logger
 config :logger, :console,

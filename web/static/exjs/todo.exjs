@@ -2,16 +2,33 @@ defmodule Todo do
   require JQuery
 
   def list() do
+    ul = :document.querySelector("#todo-list")
+
     JQuery.get("/api/todo", fn(data) -> 
       Enum.map(data, fn(x)->
-        :console.log(x)
+
+        li = :document.createElement("li")
+
+        x.title
+        |> :document.createTextNode
+        |> li.appendChild
+
+        ul.appendChild(li)
       end)
     end)
   end
 
   def add(the_title) do
-    JQuery.post("/api/todo", %{title: the_title} ,fn(data) -> 
-      :console.log(data) 
+    ul = :document.querySelector("#todo-list")
+
+    JQuery.post("/api/todo", %{title: the_title} ,fn(x) -> 
+        li = :document.createElement("li")
+
+        x.title
+        |> :document.createTextNode
+        |> li.appendChild
+
+        ul.appendChild(li)
     end)
   end
 
@@ -23,7 +40,7 @@ defmodule Todo do
     })
 
     req.done(fn(data) ->
-      :console.log(data)
+      Logger.debug(data)
     end)
   end
 
@@ -36,7 +53,7 @@ defmodule Todo do
     })
 
     req.done(fn(data) ->
-      :console.log(data)
+      Logger.debug(data)
     end)
   end
 end
