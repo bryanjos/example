@@ -19,7 +19,7 @@ defmodule Todo.Mixfile do
   # Type `mix help compile.app` for more information
   def application do
     [mod: {Todo, []},
-     applications: [:phoenix, :cowboy, :logger]]
+     applications: [:phoenix, :cowboy, :logger, :crypto]]
   end
 
   # Specifies your project dependencies
