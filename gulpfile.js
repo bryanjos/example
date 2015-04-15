@@ -44,8 +44,6 @@ gulp.task('build-elixir-lib', function() {
 gulp.task('build-js', function() {
   return gulp.src(jsSrc)
       .pipe(plumber())
-      .pipe(babel({sourceMap: false, modules:'system'}))
-      .pipe(rename({extname: '.js'}))
       .pipe(gulp.dest(jsDest));
 });
 

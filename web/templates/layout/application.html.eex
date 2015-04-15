@@ -1,32 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="en" data-framework="jquery">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Hello Phoenix!</title>
+    <title>jQuery • TodoMVC</title>
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
-
   <body>
-    <div class="container">
-      <div class="header">
-        <h1>todos</h1>
-        <input id="new-todo" placeholder="What needs to be done?" autofocus>
-      </div>
-
-      <%= @inner %>
-
-      <div class="footer">
-        <p>Double-click to edit a todo</p>
-        <p>Created by <a href="http://bryaninspired.com">Bryan Joseph</a></p>
-        <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
-      </div>
-
-    </div> <!-- /container -->
+    <%= @inner %>
     <script src="<%= static_path(@conn, "/jspm_packages/system.js") %>"></script>
     <script src="<%= static_path(@conn, "/config.js") %>"></script>
     <script src="<%= static_path(@conn, "/js/elixir.js") %>"></script>
