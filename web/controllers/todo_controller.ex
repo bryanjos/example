@@ -10,15 +10,16 @@ defmodule Todo.TodoController do
 
   def create(conn, params) do
     Todo.Store.add(params["title"])
-
-    json conn, %Td{title: params["title"], completed: params["completed"]}
+    json conn, %{data: :ok}
   end
 
   def update(conn, params) do
-    json conn, %Td{title: params["title"], completed: params["completed"]}
+    Todo.Store.update(String.to_integer(params["id"]), String.to_atom(params["completed"]))
+    json conn, %{data: :ok}
   end
 
   def delete(conn, params) do
-    json conn, Todo.Store.remove(%Td{title: params["title"], completed: params["completed"]})
+    Todo.Store.remove(String.to_integer(params["id"]))
+    json conn, %{data: :ok}
   end
 end

@@ -1,14 +1,18 @@
 defmodule App do
   import JS.Todo
+  require JQuery
 
-  Todo.list()
-  elem = :document.getElementById("new-todo")
-  elem.addEventListener("keypress", fn(%{keyCode: keyCode}) -> 
-    case keyCode do
+  ul = JQuery.("#todo-list")
+  elem = JQuery.("#new-todo")
+
+  Todo.bind_events(ul)
+  Todo.list(ul)
+
+  elem.keypress(fn(event) -> 
+    case event.which do
       13 ->
-        Todo.add(elem.value)
-      _ ->
-        Logger.debug("Some Other Key")       
+        Todo.add(ul, elem.val)
+        elem.val("")      
     end
-  end , false)
+  end)
 end

@@ -1,38 +1,66 @@
 defmodule Todo do
   require JQuery
 
-  def list() do
-    ul = :document.querySelector("#todo-list")
+  def bind_events(ul) do
+    ul.on("change", ".toggle", fn(e) ->
+      a = JQuery.(e.target)
+      b = a.closest("li")
+      id = b.data("id")
 
+      update(ul, id, a.prop("checked"))
+    end)
+
+    ul.on("click", ".destroy", fn(e) ->
+      a = JQuery.(e.target)
+      b = a.closest("li")
+      id = b.data("id")
+
+      remove(ul, id)
+    end)
+  end
+
+  def list(ul) do    
     JQuery.get("/api/todo", fn(data) -> 
+      ul.empty()
+
       Enum.map(data, fn(x)->
+        li = case x.completed do
+          true ->
+            """
+              <li data-id="#{x.id}" class="completed">
+                <div class="view">
+                  <input class="toggle" type="checkbox" checked>
+                  <label>#{x.title}</label>
+                  <button class="destroy"></button>
+                </div>
+                <input class="edit" value="#{x.title}">
+              </li>
+            """
+          false ->
+            """
+              <li data-id="#{x.id}">
+                <div class="view">
+                  <input class="toggle" type="checkbox">
+                  <label>#{x.title}</label>
+                  <button class="destroy"></button>
+                </div>
+                <input class="edit" value="#{x.title}">
+              </li>
+            """                  
+        end
 
-        li = :document.createElement("li")
-
-        x.title
-        |> :document.createTextNode
-        |> li.appendChild
-
-        ul.appendChild(li)
+        ul.append(li)
       end)
     end)
   end
 
-  def add(the_title) do
-    ul = :document.querySelector("#todo-list")
-
-    JQuery.post("/api/todo", %{title: the_title} ,fn(x) -> 
-        li = :document.createElement("li")
-
-        x.title
-        |> :document.createTextNode
-        |> li.appendChild
-
-        ul.appendChild(li)
+  def add(ul, the_title) do
+    JQuery.post("/api/todo", %{title: the_title} , fn(x) -> 
+      list(ul)
     end)
   end
 
-  def remove(id) do
+  def remove(ul, id) do
     req = JQuery.ajax(%{
       url: "/api/todo/" <> id,
       dataType: "json",
@@ -40,20 +68,21 @@ defmodule Todo do
     })
 
     req.done(fn(data) ->
-      Logger.debug(data)
+      list(ul)
     end)
   end
 
-  def update(id, title, completed) do
+  def update(ul, id, completed) do
+
     req = JQuery.ajax(%{
       url: "/api/todo/" <> id,
-      data: %{title: title, completed: completed},
+      data: %{completed: completed},
       dataType: "json",
       method: "PUT"
     })
 
     req.done(fn(data) ->
-      Logger.debug(data)
+      list(ul)
     end)
   end
 end

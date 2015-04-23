@@ -1,20 +1,42 @@
 defmodule Todo.Store do
 
   def start_link() do
-    Agent.start_link(fn -> HashSet.new end, name: __MODULE__)
+    Agent.start_link(fn -> HashDict.new end, name: __MODULE__)
   end
 
   def list() do
-    Agent.get(__MODULE__, fn(state) -> state end)
+    Agent.get(__MODULE__, fn(state) -> 
+      Enum.map(Dict.to_list(state), fn({key, value}) -> 
+        value 
+      end) 
+    end)
   end
 
   def add(title) do
-    todo = %Todo.Models.Todo{title: title, completed: false}
-    Agent.update(__MODULE__, &Set.put(&1, todo))
+    Agent.update(__MODULE__, fn(state) ->
+      Dict.put(state, Set.size(state), %Todo.Models.Todo{ title: title, completed: false, id: Set.size(state) })
+    end)
   end
 
-  def remove(todo) do
-    Agent.update(__MODULE__, &Set.delete(&1, todo))
+  def update(id, completed) do
+    Agent.update(__MODULE__, fn(state) ->
+      if Dict.has_key?(state, id) do
+        updated_todo = %{ Dict.get(state, id) | completed: completed }
+        Dict.put(state, id, updated_todo)
+      else
+        state
+      end
+    end)
+  end
+
+  def remove(id) do
+    Agent.update(__MODULE__, fn(state) ->
+      if Dict.has_key?(state, id) do
+        Dict.delete(state, id)
+      else
+        state
+      end
+    end)
   end
   
 end
