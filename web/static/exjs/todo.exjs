@@ -4,16 +4,16 @@ defmodule Todo do
   def bind_events(ul) do
     ul.on("change", ".toggle", fn(e) ->
       a = JQuery.(e.target)
-      b = a.closest("li")
-      id = b.data("id")
+      a1 = a.closest("li")
+      id = a1.data("id")
 
       update(ul, id, a.prop("checked"))
     end)
 
     ul.on("click", ".destroy", fn(e) ->
       a = JQuery.(e.target)
-      b = a.closest("li")
-      id = b.data("id")
+      a1 = a.closest("li")
+      id = a1.data("id")
 
       remove(ul, id)
     end)
@@ -76,7 +76,7 @@ defmodule Todo do
 
     req = JQuery.ajax(%{
       url: "/api/todo/" <> id,
-      data: %{completed: completed},
+      data: %{ completed: completed },
       dataType: "json",
       method: "PUT"
     })
