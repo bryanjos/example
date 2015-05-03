@@ -2,17 +2,24 @@ defmodule App do
   import JS.Todo
   require JQuery
 
-  ul = JQuery.("#todo-list")
-  elem = JQuery.("#new-todo")
+  @ul JQuery.("#todo-list")
+  @elem JQuery.("#new-todo")
 
-  Todo.bind_events(ul)
-  Todo.list(ul)
+  defp process_event(%{which: 13}) do
+    Todo.add(@ul, elem.val)
+    elem.val("")       
+  end
 
-  elem.keypress(fn(event) -> 
-    case event do
-      %{ which: 13 } ->
-        Todo.add(ul, elem.val)
-        elem.val("")      
-    end
-  end)
+  defp process_event(event) do
+    Logger.debug(event)      
+  end
+
+  defp main() do
+    Todo.bind_events(@ul)
+    Todo.list(@ul)
+
+    elem.keypress(fn(event) -> process_event(event) end)
+  end
+
+  main()
 end

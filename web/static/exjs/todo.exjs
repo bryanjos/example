@@ -3,17 +3,17 @@ defmodule Todo do
 
   def bind_events(ul) do
     ul.on("change", ".toggle", fn(e) ->
-      a = JQuery.(e.target)
-      a1 = a.closest("li")
-      id = a1.data("id")
+      checkbox = JQuery.(e.target)
+      a = checkbox.closest("li")
+      id = a.data("id")
 
-      update(ul, id, a.prop("checked"))
+      update(ul, id, checkbox.prop("checked"))
     end)
 
     ul.on("click", ".destroy", fn(e) ->
-      a = JQuery.(e.target)
-      a1 = a.closest("li")
-      id = a1.data("id")
+      cross = JQuery.(e.target)
+      a = cross.closest("li")
+      id = a.data("id")
 
       remove(ul, id)
     end)
@@ -24,30 +24,22 @@ defmodule Todo do
       ul.empty()
 
       Enum.map(data, fn(x)->
-        li = case x.completed do
-          true ->
-            """
-              <li data-id="#{x.id}" class="completed">
-                <div class="view">
-                  <input class="toggle" type="checkbox" checked>
-                  <label>#{x.title}</label>
-                  <button class="destroy"></button>
-                </div>
-                <input class="edit" value="#{x.title}">
-              </li>
-            """
-          false ->
-            """
-              <li data-id="#{x.id}">
-                <div class="view">
-                  <input class="toggle" type="checkbox">
-                  <label>#{x.title}</label>
-                  <button class="destroy"></button>
-                </div>
-                <input class="edit" value="#{x.title}">
-              </li>
-            """                  
+        {the_completed, checked} = if x.completed do
+          {"completed", "checked"}
+        else
+          {"", ""}
         end
+
+        li = """
+              <li data-id="#{x.id}" class="#{the_completed}">
+                <div class="view">
+                  <input class="toggle" type="checkbox" #{checked}>
+                  <label>#{x.title}</label>
+                  <button class="destroy"></button>
+                </div>
+                <input class="edit" value="#{x.title}">
+              </li>
+            """
 
         ul.append(li)
       end)
