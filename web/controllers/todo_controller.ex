@@ -1,6 +1,5 @@
 defmodule Todo.TodoController do
-  use Todo.Web, :controller
-  alias Todo.Models.Todo, as: Td
+  use Todo.Web, :controller 
 
   plug :action
 
