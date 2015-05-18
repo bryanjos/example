@@ -1,5 +1,5 @@
 defmodule Todo do
-  require JQuery
+  alias JQuery, from: "jquery"
 
   def bind_events(ul) do
     ul.on("change", ".toggle", fn(e) ->
@@ -53,27 +53,23 @@ defmodule Todo do
   end
 
   def remove(ul, id) do
-    req = JQuery.ajax(%{
+    JQuery.ajax(%{
       url: "/api/todo/" <> id,
       dataType: "json",
       method: "DELETE"
-    })
-
-    req.done(fn(data) ->
+    }).done(fn(data) ->
       list(ul)
     end)
   end
 
   def update(ul, id, completed) do
 
-    req = JQuery.ajax(%{
+    JQuery.ajax(%{
       url: "/api/todo/" <> id,
       data: %{ completed: completed },
       dataType: "json",
       method: "PUT"
-    })
-
-    req.done(fn(data) ->
+    }).done(fn(data) ->
       list(ul)
     end)
   end

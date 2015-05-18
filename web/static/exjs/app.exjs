@@ -1,6 +1,6 @@
 defmodule App do
-  import JS.Todo
-  require JQuery
+  alias JS.Todo
+  alias JQuery, from: "jquery"
 
   @ul JQuery.("#todo-list")
   @elem JQuery.("#new-todo")
