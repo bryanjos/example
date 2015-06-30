@@ -1,8 +1,6 @@
 defmodule Todo.TodoController do
   use Todo.Web, :controller 
 
-  plug :action
-
   def index(conn, _params) do
     json conn, Todo.Store.list
   end
