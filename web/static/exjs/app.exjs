@@ -1,5 +1,4 @@
 defmodule App do
-  alias JS.App.Todo
   alias JQuery, from: "jquery"
 
   @ul JQuery.("#todo-list")
@@ -15,8 +14,8 @@ defmodule App do
   end
 
   defp main() do
-    Todo.bind_events(@ul)
-    Todo.list(@ul)
+    JS.App.Todo.bind_events(@ul)
+    JS.App.Todo.list(@ul)
 
     elem.keypress(fn(event) -> process_event(event) end)
   end
