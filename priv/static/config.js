@@ -18,6 +18,7 @@ System.config({
 
 System.config({
   "map": {
+    "atom": "./js/elixir",
     "delorean.js": "npm:delorean.js@0.8.5",
     "immutable": "npm:immutable@3.6.4",
     "jquery": "github:components/jquery@2.1.3",

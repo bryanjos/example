@@ -1,4 +1,4 @@
-defmodule Todo do
+defmodule App.Todo do
   alias JQuery, from: "jquery"
 
   def bind_events(ul) do

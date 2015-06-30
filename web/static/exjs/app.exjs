@@ -1,5 +1,5 @@
 defmodule App do
-  alias JS.Todo
+  alias JS.App.Todo
   alias JQuery, from: "jquery"
 
   @ul JQuery.("#todo-list")

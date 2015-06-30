@@ -27,6 +27,7 @@ defmodule Todo.Mixfile do
   # Type `mix help deps` for examples and options
   defp deps do
     [
+      {:plug_cors, "~> 0.7.1"},
       {:phoenix, "~> 0.13"},
       {:phoenix_ecto, "~> 0.4"},
       {:phoenix_html, "~> 1.0"},

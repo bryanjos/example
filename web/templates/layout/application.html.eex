@@ -9,7 +9,6 @@
     <%= @inner %>
     <script src="<%= static_path(@conn, "/jspm_packages/system.js") %>"></script>
     <script src="<%= static_path(@conn, "/config.js") %>"></script>
-    <script src="<%= static_path(@conn, "/js/elixir.js") %>"></script>
     <script>
       System.import('js/app');
     </script>
