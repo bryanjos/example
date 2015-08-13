@@ -20,10 +20,10 @@ defmodule App.Todo do
   end
 
   def list(ul) do    
-    JQuery.get("/api/todo", fn(data) -> 
+    JQuery.get("/api/todo", fn(data, _, _) -> 
       ul.empty()
 
-      Enum.map(data, fn(x)->
+      Enum.map(data, fn(x, _, _)->
         {the_completed, checked} = if x.completed do
           {"completed", "checked"}
         else
@@ -47,7 +47,7 @@ defmodule App.Todo do
   end
 
   def add(ul, the_title) do
-    JQuery.post("/api/todo", %{title: the_title} , fn(x) -> 
+    JQuery.post("/api/todo", %{title: the_title} , fn(x, _, _) -> 
       list(ul)
     end)
   end
@@ -57,20 +57,23 @@ defmodule App.Todo do
       url: "/api/todo/" <> id,
       dataType: "json",
       method: "DELETE"
-    }).done(fn(data) ->
-      list(ul)
-    end)
+    }).done(
+      fn(data, _, _) ->
+        list(ul)
+      end
+    )
   end
 
   def update(ul, id, completed) do
-
     JQuery.ajax(%{
       url: "/api/todo/" <> id,
       data: %{ completed: completed },
       dataType: "json",
       method: "PUT"
-    }).done(fn(data) ->
-      list(ul)
-    end)
+    }).done(
+      fn(data, _, _) ->
+        list(ul)
+      end
+    )
   end
 end
