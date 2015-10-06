@@ -1,23 +1,75 @@
 defmodule App do
-  alias JQuery, from: "jquery"
-
-  @ul JQuery.("#todo-list")
-  @elem JQuery.("#new-todo")
-
-  defp process_event(%{which: 13}) do
-    Todo.add(@ul, elem.val)
-    elem.val("")       
-  end
+  alias JS.App.Todo
+  require JS.App.DOM
 
   defp process_event(event) do
-    Logger.debug(event)      
+    if event.which == 13 do
+      Todo.add(event.target.value)
+      JS.update(event.target, "value", "")
+    else
+      Logger.debug(event)  
+    end  
+  end
+
+  def render(todos) do
+    DOM.div do
+      DOM.section id: "todoapp" do
+        DOM.header id: "header" do
+          DOM.h1 do
+            "todos"
+          end
+          DOM.input [
+            id: "new-todo", 
+            placeholder: "What needs to be done?", 
+            autofocus: true,
+            onkeypress: fn(event) -> process_event(event) end
+          ]
+        end
+        DOM.section id: "main" do
+          DOM.ul id: "todo-list" do
+            Enum.map(todos, fn(todo, _, _)->
+              {the_completed, checked} = if todo.completed do
+                {"completed", "checked"}
+              else
+                {"", ""}
+              end
+
+              DOM.li data_id: todo.id, className: the_completed, key: todo.id do
+                DOM.div className: "view" do
+                  DOM.input [
+                    className: "toggle", 
+                    type: "checkbox", 
+                    checked: todo.completed,
+                    onchange: fn(event) -> Todo.update(event.target.parentElement.parentElement.data_id, event.target.checked) end
+                  ]
+                  DOM.label do
+                    todo.title
+                  end
+                  DOM.button [
+                    className: "destroy",
+                    onclick: fn(event) ->
+                      Todo.remove(event.target.parentElement.parentElement.data_id)
+                    end
+                  ]
+                end
+                DOM.input className: "edit", value: todo.title
+              end
+            end)
+          end
+        end
+        DOM.footer id: "footer"
+      end
+    end
   end
 
   defp main() do
-    JS.App.Todo.bind_events(@ul)
-    JS.App.Todo.list(@ul)
+    tree = render([])
 
-    elem.keypress(fn(event) -> process_event(event) end)
+    rootNode = DOM.create(tree)
+    :document.getElementById("app").appendChild(rootNode)
+
+    Agent.start(fn -> {rootNode, tree} end, [name: :app])
+    Todo.list()
   end
 
   main()

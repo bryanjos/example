@@ -1,0 +1,54 @@
+defmodule App.DOM do
+  alias VirtualDOM, from: "virtual-dom", default: true
+
+  @tags [:div, :li, :ul, :input, :section, :label, :button, :footer]
+
+  def create(tree) do
+    VirtualDOM.create(tree)
+  end
+
+  def diff(tree, newTree) do
+    VirtualDOM.create(tree, newTree)
+  end
+
+  def patch(rootNode, patches) do
+    VirtualDOM.create(rootNode, patches)
+  end
+
+  def div(attrs, do: inner) do
+    VirtualDOM.h("div", attrs, inner)
+  end
+
+  def li(attrs, do: inner) do
+    VirtualDOM.h("li", attrs, inner)
+  end
+
+  def ul(attrs, do: inner) do
+    VirtualDOM.h("ul", attrs, inner)
+  end
+
+  def input(attrs, do: inner) do
+    VirtualDOM.h("input", attrs, inner)
+  end
+
+  def section(attrs, do: inner) do
+    VirtualDOM.h("section", attrs, inner)
+  end
+
+  def label(attrs, do: inner) do
+    VirtualDOM.h("label", attrs, inner)
+  end
+
+  def button(attrs, do: inner) do
+    VirtualDOM.h("button", attrs, inner)
+  end
+
+  def header(attrs, do: inner) do
+    VirtualDOM.h("header", attrs, inner)
+  end
+
+  def footer(attrs, do: inner) do
+    VirtualDOM.h("footer", attrs, inner)
+  end
+
+end

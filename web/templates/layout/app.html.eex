@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
   <body>
+    <div id="app"></div>
     <%= @inner %>
     <script src="<%= static_path(@conn, "/jspm_packages/system.js") %>"></script>
     <script src="<%= static_path(@conn, "/config.js") %>"></script>

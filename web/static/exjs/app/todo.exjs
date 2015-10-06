@@ -1,79 +1,54 @@
 defmodule App.Todo do
-  alias JQuery, from: "jquery"
+  alias JS.App
 
-  def bind_events(ul) do
-    ul.on("change", ".toggle", fn(e) ->
-      checkbox = JQuery.(e.target)
-      a = checkbox.closest("li")
-      id = a.data("id")
+  def list() do
+    Fetch.get("/api/todo").then(fn(response) ->
+      response.json().then(fn(todos) ->
+        newTree = App.render(todos)
 
-      update(ul, id, checkbox.prop("checked"))
-    end)
+        {rootNode, tree} = Agent.get(:app, fn(x) -> x end)
 
-    ul.on("click", ".destroy", fn(e) ->
-      cross = JQuery.(e.target)
-      a = cross.closest("li")
-      id = a.data("id")
+        patches = DOM.diff(tree, newTree)
+        rootNode = DOM.patch(rootNode, patches)
 
-      remove(ul, id)
-    end)
-  end
-
-  def list(ul) do    
-    JQuery.get("/api/todo", fn(data, _, _) -> 
-      ul.empty()
-
-      Enum.map(data, fn(x, _, _)->
-        {the_completed, checked} = if x.completed do
-          {"completed", "checked"}
-        else
-          {"", ""}
-        end
-
-        li = """
-              <li data-id="#{x.id}" class="#{the_completed}">
-                <div class="view">
-                  <input class="toggle" type="checkbox" #{checked}>
-                  <label>#{x.title}</label>
-                  <button class="destroy"></button>
-                </div>
-                <input class="edit" value="#{x.title}">
-              </li>
-            """
-
-        ul.append(li)
+        Agent.update(:app, fn(_) -> {rootNode, newTree} end)
       end)
+    end).catch(fn(err) ->
+      Logger.debug(err)
     end)
   end
 
-  def add(ul, the_title) do
-    JQuery.post("/api/todo", %{title: the_title} , fn(x, _, _) -> 
-      list(ul)
+  def add(the_title) do
+    Fetch.post("/api/todo", %{
+      "headers" => %{
+        "Content-type" => "application/json"
+      },
+      "body" => JSON.stringify(%{"title" => the_title})
+    }).then(fn(response) ->
+      list()
+    end).catch(fn(err) ->
+      Logger.debug(err)
     end)
   end
 
-  def remove(ul, id) do
-    JQuery.ajax(%{
-      url: "/api/todo/" <> id,
-      dataType: "json",
-      method: "DELETE"
-    }).done(
-      fn(data, _, _) ->
-        list(ul)
-      end
-    )
+  def remove(id) do
+    Fetch.delete("/api/todo/#{id}").then(fn(response) ->
+      list()
+    end).catch(fn(err) ->
+      Logger.debug(err)
+    end)
   end
 
-  def update(ul, id, completed) do
-    JQuery.ajax(%{
-      url: "/api/todo/" <> id,
-      data: %{ completed: completed },
-      dataType: "json",
-      method: "PUT"
-    }).done(
-      fn(data, _, _) ->
-        list(ul)
-      end
-    )
+  def update(id, completed) do
+    Fetch.put("/api/todo/#{id}", %{
+      "headers" => %{
+        "Content-type" => "application/json"
+      },
+      "body" => JSON.stringify(%{ "completed" => completed })
+    }).then(fn(response) ->
+      list()
+    end).catch(fn(err) ->
+      Logger.debug(err)
+    end)
   end
 end

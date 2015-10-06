@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var sass = require('gulp-sass');
+//var sass = require('gulp-sass');
 var babel = require('gulp-babel');
 var concat = require('gulp-concat');
 var spawn = require("gulp-spawn");
@@ -29,9 +29,8 @@ gulp.task('build-sass', function() {
 });
 
 gulp.task('build-exjs', function(cb) {
-  exec('/usr/local/ex2js/bin/ex2js "' + exjsSrc + '" -r "js" -o ' + "web/static/js", function (err, stdout, stderr) {
-    console.log(stdout);
-    console.log(stderr);
+  var ex2jsCommand = '/usr/local/ex2js/bin/ex2js "' + exjsSrc + '" -r "js" -o ' + '"web/static/js"';
+  exec(ex2jsCommand, function (err, stdout, stderr) {
     cb(err);
   });
 });
@@ -43,7 +42,7 @@ gulp.task('build-js', ['build-exjs'], function() {
       .pipe(gulp.dest(jsDest));
 });
 
-gulp.task('build', ['build-js', 'build-sass']);
+gulp.task('build', ['build-js']);
 
 
 gulp.task('watch', ['build'], function() {

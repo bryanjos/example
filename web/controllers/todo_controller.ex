@@ -11,7 +11,7 @@ defmodule Todo.TodoController do
   end
 
   def update(conn, params) do
-    Todo.Store.update(String.to_integer(params["id"]), String.to_atom(params["completed"]))
+    Todo.Store.update(String.to_integer(params["id"]), params["completed"])
     json conn, %{data: :ok}
   end
 
